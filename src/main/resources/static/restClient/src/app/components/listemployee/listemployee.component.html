@@ -1,0 +1,48 @@
+<script>
+    var data = [
+       ['Foo', 'programmer'],
+       ['Bar', 'bus driver'],
+       ['Moo', 'Reindeer Hunter']
+    ];
+     
+     
+    function download_csv() {
+        var csv = 'Name,Title\n';
+        data.forEach(function(row) {
+                csv += row.join(',');
+                csv += "\n";
+        });
+     
+        console.log(csv);
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'people.csv';
+        hiddenElement.click();
+    }
+    </script>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <th>Id</th>
+      <th>Employee Name</th>
+      <th>Email Id</th>
+      <th>Phone</th>
+      <th>Operations</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{employee.id | number: '3.0-5'}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.phone}}</td>
+        <td><button class="btn btn-danger" (click)="deleteEmployee(employee)">Delete</button>
+        <button class="btn btn-primary"(click)="updateEmployee(employee)">Edit</button></td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary" (click)="newEmployee()">New</button></td>
+        <td><button class="btn btn-primary" onclick="download_csv()">Download</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
